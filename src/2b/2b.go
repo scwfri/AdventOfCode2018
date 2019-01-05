@@ -1,0 +1,303 @@
+package main
+
+import (
+	"fmt"
+	"strings"
+)
+
+func checksum(input string) {
+
+	var splitInput = strings.Split(input, "\n")
+
+	for i := 0; i < len(splitInput); i++ {
+		// iterate through remainder of list
+		// see if there is one diff between each string
+		for j := len(splitInput) - 1; j > i; j-- {
+			var numDiffs = 0
+			for k := 0; k < len(splitInput[j]); k++ {
+				if splitInput[i][k] != splitInput[j][k] {
+					numDiffs++
+				}
+			}
+			if numDiffs == 1 {
+				fmt.Println(findCommonLetters(splitInput[i], splitInput[j]))
+			}
+			numDiffs = 0
+		}
+	}
+
+}
+
+func findCommonLetters(firstString string, secondString string) string {
+	var resString = ""
+
+	for i := 0; i < len(firstString); i++ {
+		if firstString[i] == secondString[i] {
+			resString = resString + string(firstString[i])
+		}
+	}
+	return resString
+}
+
+func main() {
+	checksum(input)
+}
+
+const testInput = `abcde
+fghij
+klmno
+pqrst
+fguij
+axcye
+wvxyz`
+
+const input = `umdryebvlapkozostecnihjexg
+amdryebalapkozfstwcnrhjqxg
+umdcyebvlapaozfstwcnihjqgg
+ymdryrbvlapkozfstwcuihjqxg
+umdrsebvlapkozxstwcnihjqig
+umdryibvlapkohfstwcnfhjqxg
+umdryebvqapkozfatwcnihjqxs
+umzrpebvlapkozfshwcnihjqxg
+fmhryebvlapkozfstwckihjqxg
+umdryebvlahkozfstwcnizjrxg
+qmdryebvlapkozfslwcnihgqxg
+umdiyebjlapknzfstwcnihjqxg
+umdryebvlapkoqfstwcaihvqxg
+cmdryebvlapkpzfstwcnihjvxg
+umdryebvlakkozfstwcgihjixg
+umdryebvlasjozfstwcnihqqxg
+umdryebvladkozfsvwcnifjqxg
+umdrlebvlapaozfstwcniwjqxg
+umdryebvlhpkozrstwsnihjqxg
+umdryebvcapkozfqtwcnihjrxg
+ubdrykbvlapkowfstwcnihjqxg
+umdryebvldpkozfstwcnihtqsg
+umdryebvlapaozyutwcnihjqxg
+umdryibvlapkozfstdfnihjqxg
+umdryebvlapgozkstwznihjqxg
+umdrxebvlapkozfstwcngxjqxg
+umdryekvlapkozfstwclchjqxg
+nmdryebvlapkozjsewcnihjqxg
+umdryebvyapkozfstfcniheqxg
+umdfyebvlapkozfstwcnhhjpxg
+umdryelylupkozfstwcnihjqxg
+smdryebvlqpkozfstwcnihjdxg
+umdryebvlapaozfsuwcnihjqxc
+umdryebvlrzkozrstwcnihjqxg
+umdbycbvlapkojfstwcnihjqxg
+umdryebvlapkonfstwpnirjqxg
+uecryebvlapkozfstwcnihpqxg
+uqdryebvltpkozfstwcnihrqxg
+umdryebvlqsknzfstwcnihjqxg
+cmdryebvlapkocfstwcvihjqxg
+umdrkebvlapkozqsfwcnihjqxg
+umdryabveapkoifstwcnihjqxg
+ummrnehvlapkozfstwcnihjqxg
+umdryebvlxpkozfstwqnihjtxg
+umdryebvlagkozastwcnihjqxh
+umdryebvlatkozzhtwcnihjqxg
+umdryebvlcpkozfstwrnihjqvg
+umdryebvlapkozfsnwcnrhjcxg
+umdzyebvlypkozfstwcnibjqxg
+nmdryebvlvpkozbstwcnihjqxg
+uwdryebvlipkozfstwcnihvqxg
+umdraebvlavkozfstwcnihjqwg
+umdeyebvlspbozfstwcnihjqxg
+umdryxlvlapkozfstwcnihjqxu
+umdryegvlapkqzfstwcnirjqxg
+umdrupbvlapkozfstwcnihjqog
+imxryebvlapkxzfstwcnihjqxg
+umdrfebvlapkozowtwcnihjqxg
+umdreebvlapkozmstwczihjqxg
+undryebdlapkozbstwcnihjqxg
+umdryebvlapkpzfetwcnihjqxb
+ymdnyebvlapkozfstwinihjqxg
+umdryebvaapkozfstwcnihyqqg
+umdryebvlapkzzwsrwcnihjqxg
+umdrkebvlapkmzfskwcnihjqxg
+umdrmebvlapkozfsvwcnidjqxg
+umdlyehvlapkozfstwcnihjqkg
+umnryebvlrpkozfstwjnihjqxg
+uqdryebvlapxozfsawcnihjqxg
+vmdruebvlapkozfstwcnihjqqg
+umdryabviapkozistwcnihjqxg
+umdryebvlapkzzfstwfnihkqxg
+uvdryebvlapkozfsxwcuihjqxg
+umdlhebvlapkozfstwcnvhjqxg
+umdreebvlapkopfstjcnihjqxg
+umdryebvlazkomfstwynihjqxg
+kmdryebulapkoznstwcnihjqxg
+umdryebvxakkozfstwinihjqxg
+ukdryobvlapkozistwcnihjqxg
+umdryebveapkozfstwcnthjqgg
+mmdrtebvlapcozfstwcnihjqxg
+umdryebvlapkolistwnnihjqxg
+umdryebxlapkozfatwcnihjqxx
+uxdryebvlapkozfstwhniheqxg
+ufdryebvzapkozfstwcnbhjqxg
+amdryhbvlapkozfstwcnifjqxg
+umqryebvlaphozfstwcnihjqxn
+umdryebvlapkosfstfcnihjqxe
+gmkryebvlapkozfstwcnihjmxg
+umdrnebvlkpkozfstwcnihjnxg
+umdryebvrapkozfstmcndhjqxg
+umdryebvmapkozfstichihjqxg
+umdryesvnapkozestwcnihjqxg
+umeryhbvlapkozfstfcnihjqxg
+umdryedvbapkozfstwcnihqqxg
+umdryebllapzozfstwcnihjvxg
+umdcyebvlzdkozfstwcnihjqxg
+umdrybbvlapkbvfstwcnihjqxg
+umdrytbglapkozfsthcnihjqxg
+umdryebvlkpkozfsteclihjqxg
+umdntebvlapkmzfstwcnihjqxg
+lkdryebveapkozfstwcnihjqxg
+ymdryubvlapkozfstwbnihjqxg
+tmrryebvlapkozfstwcnqhjqxg
+umdryeovlaekonfstwcnihjqxg
+umiryeuvlapkozfstwcnihjwxg
+umdryebvlspvozwstwcnihjqxg
+umdrtebvlapkoznxtwcnihjqxg
+umvryebvlaphozfstwcnahjqxg
+umdryebvlapkozfstinniajqxg
+umdryebqlapkozfctwcnihjqxx
+umdryebvlapkbzfptwcnihjqvg
+umdryabviapkozistwcnihjqxd
+umdryrbvlapkezfstscnihjqxg
+umhryebvlapkozfstacnihxqxg
+umdxyelvlapkozfitwcnihjqxg
+umdryevvuapkozfstwcnihtqxg
+uydrypbvxapkozfstwcnihjqxg
+umdryebvlapkopfstwcnihzqxo
+uedryebvlapkozistwceihjqxg
+umdiyebvlapkozfgtwcnihjqxv
+ymdryebvlapkozfsticniqjqxg
+umbrkebvlapkozfslwcnihjqxg
+umdryebliapkozbstwcnihjqxg
+umvryebolapkozfstwcnihjqig
+umdryeavbackozfstwcnihjqxg
+umdryfbvlapsozfstwcnihaqxg
+umdqyebvlapkozfjtgcnihjqxg
+umdrjebvlaqkozfstwcyihjqxg
+umdryebklaqkozrstwcnihjqxg
+umdryebvpapkozfstwcpihjqjg
+uydryebhlawkozfstwcnihjqxg
+umdyyebvlapkozfstwcykhjqxg
+umdryebvlapkozfstwcnitjnxh
+umdzyebvlapkozfstwcnehyqxg
+mmcryebvlapkozfstwinihjqxg
+umdryebvlapuozfstwmvihjqxg
+umdryfbvlapkozqstwcnihjmxg
+umdryebslapsozfhtwcnihjqxg
+umdtyemvlapmozfstwcnihjqxg
+umdrxevvlapkozfytwcnihjqxg
+umdahebvlapjozfstwcnihjqxg
+umdryebvlapkozfstacnivjqxb
+umdryebvlzpkozfjtwcnihjyxg
+umdryebvlaqkozfstwcnisjqxu
+umdrydbvlapkozfsuwcnihjlxg
+umdryebvlapkomrstwcnihjqkg
+umdryebvlapcozfstmcnwhjqxg
+umdryebvlahkozfstwcibhjqxg
+gmdrzebvlapkozlstwcnihjqxg
+umdryebvlapkezfsswcnrhjqxg
+umdryebvlapkoqfitwcgihjqxg
+umdrnebvlapkozfsiwcninjqxg
+umdryebvlapkozfsrwckohjqxg
+umdryebtlapkomfstwcnihjexg
+umdryxbvlapjozfstwcnihoqxg
+umdpyebvlapkosustwcnihjqxg
+umdryebvlapkvzfawwcnihjqxg
+umhnyebvlaikozfstwcnihjqxg
+umdryebvlagkozfstvknihjqxg
+uodryebjlapkoxfstwcnihjqxg
+umdryefdlapkozfstwcnyhjqxg
+umprmebvtapkozfstwcnihjqxg
+umdhyebvlapoozfstwcnihjqgg
+uddryebvidpkozfstwcnihjqxg
+umdryebtlapkozfetwfnihjqxg
+umdbyebolapkozfstwcoihjqxg
+umdryebvlapkonfstwcnihjpxo
+umdryebvlapkohfstwcnihjqwk
+umdryebolalkkzfstwcnihjqxg
+updryebvxapkozfstwcnshjqxg
+umdryebvlapkovfktwcnuhjqxg
+umdrqrbvlppkozfstwcnihjqxg
+umdrylgvlapkozfstwrnihjqxg
+umdryebvlapkozfstxcnihbqig
+uvdryeevlappozfstwcnihjqxg
+zmdryebvlapkozfstwcnihqqxt
+umdryebvlapvozfstwenihiqxg
+umdryebvlbpkozfsgwcnihjlxg
+umdryhbvlapkozfstwcnihtqxw
+umdreecvlapkozwstwcnihjqxg
+umwryebvlapkoztsmwcnihjqxg
+ukdryebvfapkozrstwcnihjqxg
+umdrylbdlamkozfstwcnihjqxg
+umdryebvlapoozwsmwcnihjqxg
+umdryebvlapkozfqtwcnnzjqxg
+umdryekvlapktzfstwcnohjqxg
+umdryebvlapkozfstwcnihjwqo
+umdrrebflapkogfstwcnihjqxg
+umdryevvlapkozfztwctihjqxg
+umdrybbvlapkozfstwcnihxaxg
+umdryebvlapkozfsowcnphjqag
+smdryebvlapbozfitwcnihjqxg
+umdryebvtapiozfstwcnihjqxe
+umdryebjlakkozfstwccihjqxg
+umdryebvlapdozfshwckihjqxg
+umnryebvlapiozfstwcnihlqxg
+umdrycbvlapkjzfsnwcnihjqxg
+umdryebvyaprozjstwcnihjqxg
+ucdryebvlapkozfstwomihjqxg
+umdryebvlagklzfstwcnihjqyg
+umdryebvladkozfstwcnihjqjh
+umdrwebvlapkozfstwdnicjqxg
+umdryebvlapkmzfstwcniheqxr
+umdryebvlapkjzfstwcviheqxg
+umdrvebvlapkozfstwcbihjqmg
+umdrfebvlapkoffstwcnihsqxg
+umdryebvtarkazfstwcnihjqxg
+umdryebvlapkozfstwcfihjcng
+umdryebvlapkktostwcnihjqxg
+uedryeevlapkozfstwcniijqxg
+bmdryebylapkozfstwcnihjqog
+umdryebvlmpkoztstwcnihjqeg
+umdryepvlarkohfstwcnihjqxg
+uwdryebvlapklzfstzcnihjqxg
+umdryebklapkozfsswcbihjqxg
+umdtyeavlapkozfstwsnihjqxg
+umdryebvaapkozfhtfcnihjqxg
+umdrpebvlapuozfstwvnihjqxg
+umdryebvlapkozffmwcniijqxg
+uqdpyebvlapkozfstwfnihjqxg
+umdryebvlapuozdstwcnihjhxg
+tmdryhbvlapkozfptwcnihjqxg
+umdryevvmapkozfstwcnihjgxg
+umdryeuvlapmozfstwcnihjwxg
+umdryebqlzpkozfbtwcnihjqxg
+umdryebvsapkozystwcniqjqxg
+imdryebvlapkozfscwinihjqxg
+umdryebvlzpkozustwcnmhjqxg
+umdrypbvlapbozfsnwcnihjqxg
+bmdryebvlapqoznstwcnihjqxg
+umdrfebvlapaozfstwcnihxqxg
+umdiyebvxapkozfstwcnchjqxg
+umdrygbvlapkozfstwcnizjqxz
+amdryedvlapkozfstwcnihfqxg
+umdryebvvapzozfstwcnihjgxg
+undryebvlapkzzfstjcnihjqxg
+umdryvbvlapgozfrtwcnihjqxg
+umdrkebvlapkozfstwcnihihxg
+umdryebvrppkozfsowcnihjqxg
+umdryebvlapktzfsdwclihjqxg
+otdrdebvlapkozfstwcnihjqxg
+mmdryebvlazkozfxtwcnihjqxg
+umdryebvlapkozfsbwtnihjqxa
+imqryebvrapkozfstwcnihjqxg
+umdryebvlrpkozfscwcnihjqlg
+uedryebvlapkoznsvwcnihjqxg
+umdryebvlqpkozfstscnihjqxj
+umerycbvlapkozfstwcnihjqxh
+umdkykbvlapjozfstwcnihjqxg`

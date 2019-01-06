@@ -3,19 +3,53 @@ package main
 import (
 	"fmt"
 	"strings"
+	"unicode/utf8"
 )
 
+const tableSize = 1000
+
+type claim struct {
+	claimNumber int
+	xCoord      int
+	yCoord      int
+	width       int
+	height      int
+}
+
 type square struct {
-	numOverlap int
-	xCoord     int
-	yCoord     int
+	overlappingClaims []claim
 }
 
 func fabricSize(input string) {
 
 	var splitInput = strings.Split(input, "\n")
 
-	fmt.Println(splitInput)
+	var claimList []claim
+	var table [tableSize][tableSize]square
+
+	for i := 0; i < len(splitInput); i++ {
+		claimList = append(claimList, parseInput(splitInput[i]))
+		fmt.Println(claimList)
+	}
+
+	for i := 0; i < tableSize; i++ {
+		for j := 0; j < tableSize; j++ {
+			table[i][j] = square{}
+		}
+	}
+
+}
+
+func parseInput(coord string) claim {
+	// parse input
+	// #1 @ 1,3: 4x4
+
+	var newClaim = claim{}
+
+	//xCoord
+	var xCoord, _ = utf8.DecodeRuneInString(coord[strings.Index(coord, "@")+2])
+
+	return newClaim
 }
 
 func main() {

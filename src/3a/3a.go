@@ -2,18 +2,18 @@ package main
 
 import (
 	"fmt"
+	"strconv"
 	"strings"
-	"unicode/utf8"
 )
 
-const tableSize = 1000
+const tableSize = 10
 
 type claim struct {
-	claimNumber int
-	xCoord      int
-	yCoord      int
-	width       int
-	height      int
+	claimNumber int64
+	xCoord      int64
+	yCoord      int64
+	width       int64
+	height      int64
 }
 
 type square struct {
@@ -22,14 +22,13 @@ type square struct {
 
 func fabricSize(input string) {
 
-	var splitInput = strings.Split(input, "\n")
+	splitInput := strings.Split(input, "\n")
 
 	var claimList []claim
 	var table [tableSize][tableSize]square
 
 	for i := 0; i < len(splitInput); i++ {
 		claimList = append(claimList, parseInput(splitInput[i]))
-		fmt.Println(claimList)
 	}
 
 	for i := 0; i < tableSize; i++ {
@@ -38,18 +37,42 @@ func fabricSize(input string) {
 		}
 	}
 
+	for i := 0; i < len(claimList); i++ {
+		// add each claim to table
+		xCoord := claimList[i].xCoord
+		yCoord := claimList[i].yCoord
+
+		table[xCoord][yCoord].overlappingClaims = append(table[xCoord][yCoord].overlappingClaims, claimList[i])
+	}
+
+	printTable(table)
 }
 
 func parseInput(coord string) claim {
 	// parse input
 	// #1 @ 1,3: 4x4
 
-	var newClaim = claim{}
+	newClaim := claim{}
 
-	//xCoord
-	var xCoord, _ = utf8.DecodeRuneInString(coord[strings.Index(coord, "@")+2])
+	num, _ := strconv.ParseInt(coord[1:2], 10, 64)
+	x, _ := strconv.ParseInt(coord[strings.Index(coord, ",")+1:strings.Index(coord, ":")], 10, 64)
+	y, _ := strconv.ParseInt(coord[strings.Index(coord, "@")+2:strings.Index(coord, ",")], 10, 64)
+	width, _ := strconv.ParseInt(coord[strings.Index(coord, ":")+2:strings.Index(coord, "x")], 10, 64)
+	height, _ := strconv.ParseInt(coord[strings.Index(coord, "x")+1:], 10, 64)
+
+	newClaim.claimNumber = num
+	newClaim.xCoord = x
+	newClaim.yCoord = y
+	newClaim.width = width
+	newClaim.height = height
 
 	return newClaim
+}
+
+func printTable(table [tableSize][tableSize]square) {
+	for i := 0; i < len(table); i++ {
+		fmt.Println(table[i])
+	}
 }
 
 func main() {

@@ -59,7 +59,21 @@ func fabricSize(input string) {
 		}
 	}
 
+	// determine number of cells with overlap
+
+	overlapCount := 0
+
+	for i := int64(0); i < tableSize; i++ {
+		for j := int64(0); j < tableSize; j++ {
+			if len(table[i][j].overlappingClaims) > 1 {
+				overlapCount++
+			}
+		}
+	}
+
 	printTable(table)
+
+	fmt.Println(overlapCount)
 }
 
 func parseInput(coord string) claim {

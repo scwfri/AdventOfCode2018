@@ -6,7 +6,7 @@ import (
 	"strings"
 )
 
-const tableSize int64 = 10
+const tableSize int64 = 1000
 
 type claim struct {
 	claimNumber int64
@@ -71,7 +71,7 @@ func fabricSize(input string) {
 		}
 	}
 
-	printTable(table)
+	//printTable(table)
 
 	fmt.Println(overlapCount)
 }
@@ -104,7 +104,7 @@ func printTable(table [tableSize][tableSize]square) {
 }
 
 func main() {
-	fabricSize(testInput)
+	fabricSize(input)
 }
 
 const testInput = `#1 @ 1,3: 4x4

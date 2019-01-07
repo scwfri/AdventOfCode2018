@@ -6,18 +6,18 @@ import (
 	"strings"
 )
 
-const tableSize = 10
+const tableSize int64 = 10
 
 type claim struct {
 	claimNumber int64
-	xCoord      int64
-	yCoord      int64
+	row         int64
+	column      int64
 	width       int64
 	height      int64
 }
 
 type square struct {
-	overlappingClaims []claim
+	overlappingClaims []int64
 }
 
 func fabricSize(input string) {
@@ -31,18 +31,32 @@ func fabricSize(input string) {
 		claimList = append(claimList, parseInput(splitInput[i]))
 	}
 
-	for i := 0; i < tableSize; i++ {
-		for j := 0; j < tableSize; j++ {
+	for i := int64(0); i < tableSize; i++ {
+		for j := int64(0); j < tableSize; j++ {
 			table[i][j] = square{}
 		}
 	}
 
 	for i := 0; i < len(claimList); i++ {
-		// add each claim to table
-		xCoord := claimList[i].xCoord
-		yCoord := claimList[i].yCoord
+		row := claimList[i].row
+		column := claimList[i].column
 
-		table[xCoord][yCoord].overlappingClaims = append(table[xCoord][yCoord].overlappingClaims, claimList[i])
+		table[row][column].overlappingClaims = append(table[row][column].overlappingClaims, claimList[i].claimNumber)
+	}
+
+	for i := 0; i < len(claimList); i++ {
+		// for each claim
+		// from initial point, go width right, height down
+
+		claim := claimList[i]
+
+		for j := int64(0); j < claim.width; j++ {
+			for k := int64(0); k < claim.height; k++ {
+				if k != 0 || j != 0 {
+					table[claim.row+k][claim.column+j].overlappingClaims = append(table[claim.row+k][claim.column+j].overlappingClaims, claim.claimNumber)
+				}
+			}
+		}
 	}
 
 	printTable(table)
@@ -55,14 +69,14 @@ func parseInput(coord string) claim {
 	newClaim := claim{}
 
 	num, _ := strconv.ParseInt(coord[1:2], 10, 64)
-	x, _ := strconv.ParseInt(coord[strings.Index(coord, ",")+1:strings.Index(coord, ":")], 10, 64)
-	y, _ := strconv.ParseInt(coord[strings.Index(coord, "@")+2:strings.Index(coord, ",")], 10, 64)
+	column, _ := strconv.ParseInt(coord[strings.Index(coord, "@")+2:strings.Index(coord, ",")], 10, 64)
+	row, _ := strconv.ParseInt(coord[strings.Index(coord, ",")+1:strings.Index(coord, ":")], 10, 64)
 	width, _ := strconv.ParseInt(coord[strings.Index(coord, ":")+2:strings.Index(coord, "x")], 10, 64)
 	height, _ := strconv.ParseInt(coord[strings.Index(coord, "x")+1:], 10, 64)
 
 	newClaim.claimNumber = num
-	newClaim.xCoord = x
-	newClaim.yCoord = y
+	newClaim.row = row
+	newClaim.column = column
 	newClaim.width = width
 	newClaim.height = height
 
